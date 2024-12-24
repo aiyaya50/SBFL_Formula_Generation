@@ -31,7 +31,7 @@ public final class Fo6 extends AbstractSFLFormula{
  	 @Override
  	 public double compute(final double n00, final double n01, final double n10, final double n11) {
  	 	 try { 
- 	 	 return -ef; 
+ 	 	 return -n11; 
  	 	 }
  	 	 catch(ArithmeticException e){
  	 	 	 return 0.0; 
