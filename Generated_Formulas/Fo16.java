@@ -23,15 +23,15 @@ package com.gzoltar.sfl.formulas;
  * @author José Campos
  */ 
 
-public final class Fo2 extends AbstractSFLFormula{
+public final class Fo16 extends AbstractSFLFormula{
 	 @Override
  	 public String getName() {
- 	 return "Fo2";
+ 	 return "Fo16";
  	}
  	 @Override
  	 public double compute(final double n00, final double n01, final double n10, final double n11) {
  	 	 try { 
- 	 	 return (-ef*(ef + ep + nf + np) - ep*(ef + np))/(ef**2*(ef + ep + nf + np)); 
+ 	 	 return (ef*(1 - ef)*(ef + ep + nf + np) - ep*(ef + np))/(ef + ep + nf + np); 
  	 	 }
  	 	 catch(ArithmeticException e){
  	 	 	 return 0.0; 

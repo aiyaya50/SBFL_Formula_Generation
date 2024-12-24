@@ -31,7 +31,7 @@ public final class Fo7 extends AbstractSFLFormula{
  	 @Override
  	 public double compute(final double n00, final double n01, final double n10, final double n11) {
  	 	 try { 
- 	 	 return n11; 
+ 	 	 return ef**2*(ef*(ef + ep + nf + np) - ep*(ef + np))/(ef + ep + nf + np); 
  	 	 }
  	 	 catch(ArithmeticException e){
  	 	 	 return 0.0; 
