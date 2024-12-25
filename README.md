@@ -8,7 +8,7 @@
 
 <b>Note</b>
 It worth noting that list of buggy lines from defects4j is neccessary to run result_analysis.py.
-Download the buggy statements from https://bitbucket.org/rjust/fault-localization-data/src/master/analysis/pipeline-scripts/buggy-lines/ OR regenerate using extract_buggy_lines.py file.
+Download the buggy statements from https://bitbucket.org/rjust/fault-localization-data/src/master/analysis/pipeline-scripts/buggy-lines/ OR regenerate using extract_buggy_lines.sh file.
 
 ## Steps
 1. run the Gzoltar_compatible_formula_generation.ipynb file in jupyter to generate the 22 formulas and manually adjust to conform with Gzoltar/java code
