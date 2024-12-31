@@ -11,7 +11,8 @@ It worth noting that list of buggy lines from defects4j is neccessary to run res
 Download the buggy statements from https://bitbucket.org/rjust/fault-localization-data/src/master/analysis/pipeline-scripts/buggy-lines/ OR regenerate using extract_buggy_lines.sh file.
 
 ## Steps
-1. run the Gzoltar_compatible_formula_generation.ipynb file in jupyter to generate the 22 formulas and manually adjust to conform with Gzoltar/java code
+1. Set up defects4j 
+2. Run the Gzoltar_compatible_formula_generation.ipynb file in jupyter to generate the 22 formulas and manually adjust to conform with Gzoltar/java code
      OR use the formulars in the 'manually_adjusted_formulas' repository.
 3. Set up Gzoltar and alter some of its files (e.g SFLFormulas.java) to incoporate the outcome of #1 above (For details see the https://github.com/aiyaya50/SBFL_Formula_Generation/Manually_adjusted_Formulas/README.md)
 4. Edit path names in fl.py, run.sh, and result_analysis.py to those in your computer
