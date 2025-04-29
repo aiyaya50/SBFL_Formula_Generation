@@ -1,0 +1,29 @@
+Simple Guide to run Gzoltar on Java Programs
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~o~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Step 1- list testmethod
+	
+pre-run: run the command mvn clean test-run. 
+
+java -cp $GZOLTAR_CLI_JAR:target/classes:target/test-classes com.gzoltar.cli.Main listTestMethods target/test-classes --outputFile tests.txt
+
+key output - you will receive textfile with list of tests in work_dir
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~o~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+step-2 instrumentation
+java -cp $GZOLTAR_CLI_JAR:target:$GZOLTAR_AGENT_JAR com.gzoltar.cli.Main instrument target/classes --outputDirectory instrument-classes
+
+output - new directory instrument-classes is created with compile code
+
+step-3 run testMethod
+java -cp $GZOLTAR_AGENT_JAR:$GZOLTAR_CLI_JAR:instrument-classes:$D4J_HOME/framework/projects/lib/junit-4.11.jar:target/test-classes  com.gzoltar.cli.Main runTestMethods --testMethods tests.txt --collectCoverage --offline
+
+key output: gzoltar.ser file will be created
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~o~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+step-4 fault localization
+
+
+java -cp $GZOLTAR_CLI_JAR:$GZOLTAR_AGENT_JAR:target/classes com.gzoltar.cli.Main faultLocalizationReport --dataFile gzoltar.ser  --buildLocation target/classes --outputDirectory Result
+
+A folder name Result created with matrix, spectra and localization results of default SBFL formula
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~o~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
