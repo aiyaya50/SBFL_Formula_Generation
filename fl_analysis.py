@@ -2,7 +2,7 @@ import pandas as pd
 import re
 import numpy as np
 
-fl_metric=False 
+fl_metric=True 
 #True for top_n while false for wasted_effort
 
 check='processed' 
@@ -68,7 +68,7 @@ def findBuggyLine(dir):
             buglist.append(line1)
             
     return buglist
-    f.close
+  
     
         
 

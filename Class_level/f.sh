@@ -2,7 +2,7 @@ PID=Compress
 BID=47
 # Setup
 
-work_dir="/home/aiyaya50/SBFL_Formula_Generation/method_level"
+work_dir="/home/aiyaya50/SBFL_Formula_Generation/class_level"
 data_dir="/home/aiyaya50/Bugs"
 main_dir="/home/aiyaya50"
 
@@ -26,12 +26,12 @@ cd "$data_dir/$PID-${BID}b"
 ser_file="$data_dir/$PID-${BID}b/gzoltar.ser"
 
 cd "$work_dir"
-output_dir="/home/aiyaya50/Bugs/$PID-${BID}b/sfl_method"
+output_dir="/home/aiyaya50/Bugs/$PID-${BID}b/sfl_class"
 mkdir $output_dir
 java -cp "$src_classes_dir:$D4J_HOME/framework/projects/lib/junit-4.11.jar:$test_classpath:$GZOLTAR_CLI_JAR" \
     com.gzoltar.cli.Main faultLocalizationReport \
       --buildLocation "$src_classes_dir" \
-      --granularity "method" \
+      --granularity "class" \
       --inclPublicMethods \
       --inclStaticConstructors \
       --inclDeprecatedMethods \

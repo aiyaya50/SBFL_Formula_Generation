@@ -1,5 +1,3 @@
-PID=Compress
-BID=47
 # Setup
 
 work_dir="/home/aiyaya50/SBFL_Formula_Generation/method_level"
@@ -31,7 +29,7 @@ mkdir $output_dir
 java -cp "$src_classes_dir:$D4J_HOME/framework/projects/lib/junit-4.11.jar:$test_classpath:$GZOLTAR_CLI_JAR" \
     com.gzoltar.cli.Main faultLocalizationReport \
       --buildLocation "$src_classes_dir" \
-      --granularity "method" \
+      --granularity "methods" \
       --inclPublicMethods \
       --inclStaticConstructors \
       --inclDeprecatedMethods \

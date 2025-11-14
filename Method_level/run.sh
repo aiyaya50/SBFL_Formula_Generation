@@ -1,11 +1,9 @@
-PID=Compress
-BID=47
 # Setup
 
 work_dir="/home/aiyaya50/SBFL_Formula_Generation/method_level"
 data_dir="/home/aiyaya50/Bugs"
 main_dir="/home/aiyaya50"
-
+output_dir="/home/aiyaya50/Bugs_method"
 
 
 # Get GZoltar

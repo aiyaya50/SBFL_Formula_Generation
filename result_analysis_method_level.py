@@ -19,7 +19,7 @@ tria12l={'Lang':'65', 'Chart':'26', 'Time':'26', 'Mockito':'38',  'Math':'106','
           'Jsoup':'93', 'JacksonXml':'6','JacksonDatabind':'112', 'JacksonCore':'26', 'Gson':'18', 'Compress':'47'}
 
 def fileResult(table, metric):
-    fil = f"statement_level/topn_{check}_result.csv" if fl_metric else f"statement_level/ewe_{check}_result.csv"
+    fil = f"method_level/topn_{check}_method_result.csv" if fl_metric else f"method_level/ewe_{check}_method_result.csv"
     f = open(fil, "w")
     f.write("metrics:\t")
     for e in metric:
@@ -46,78 +46,57 @@ def splitItem(item, separator):
     else:
         return item
 
-def findBuggyLine(dir):
-    f = open(dir, "r", errors='ignore')
-    line='not'
-    buglist=[]
-    for x in f:
-        
-        if 'org' in x or 'com' in x:
-            # line= x
-            # clean and prepare the bug line to conform with the Gzoltar naming
-            line= x.translate(str.maketrans({'/':'.', '-':''}))
-            line=re.sub('.java',':', line)
-            line=re.sub('a.src.|a.source.|#|a.src.main:.|main:.','@', line.strip())    
-            # prepare the range of buggy line to append to the bug url
-            # line2= line2.replace("@","")
-            line1=line.split('@')[0].strip()
-            number=line.split('@')[1].strip()
-            #line+=re.sub('[a-z|A-Z|@|-]','', x).split('#')[1].strip()
-            line1 +=number        
-            #print(f'Buggy Line {e}-{line1}')
-            buglist.append(line1)
-            
-    return buglist
-    f.close
-    print(f'We did not pray for this: {x}')
-    return line
-        
+def findBuggyClassAndMethod(dir):
+    try:
+        f = open(dir, "r", errors='ignore')
+        #line='not'
+        buglist=[]
+        for x in f:
+            if 'org' in x or 'com' in x:   
+                buglist.append(x.strip()) 
+        f.close
+        return buglist
+    except Exception as ef:
+        print(f'Error: {ef}')
+        return 'Na'
 
         #  ls is list of url from Gzoltar fl reports while 
         # bugl is the bugl is the range of bug lines extracted from D4J patch
-def splitListContent(ls, buglines, assessor):
+def topNandWastedEffort(ls, bugMethods, assessor):
     
-    #print(buglines)
+    print()
     nList=[]
     class_notifier=0
     for x,i in ls.iterrows():
-        
-        nList.append(x)
+        #print(f'index{x}')
+        nList.append(x+1)
 
         i = i['name']
-        # separator for the Gzoltar reported buggy_line url and line number
-        if ':' in i:
- 
-            key, value = i.split(':')
+        if '#' in i:
+            buggies = i.split('#')
             
-            # key is the url containing some special characters
-            # replace $ in key to conform with url generated from D4J patch file
-            key= key.translate(str.maketrans('$','.'))
-            key=key.split('#')[0]
-            element = f'{key}:{value}'
+            buggy_class, buggy_method = buggies[0], buggies[1]
+
+            buggy_class= buggy_class.translate(str.maketrans('$','.'))
+            buggy_method=buggy_method.split('(')[0]
+            element = f'{buggy_class}, {buggy_method}'
             
                      
             # split D4J bugl into url and line no
            
-            if element in buglines:
-                #print(f'in chunk{element in buglines}')
-                return ls.at[x, 'rank'] if assessor else nList.index(x)
+            if element in bugMethods:
+                #print('found')
+                return ls.at[x, 'rank'] if assessor else nList.index(x-1)
                 
             
-            for bugl in buglines:
-                url, no =bugl.split(':')
+            for bugl in bugMethods:
+                url, met =bugl.split(',')
                 # create range of buggy lines 
                 
-                if url == key and class_notifier==0:
+                if url == buggy_class and class_notifier==0:
                     class_notifier=ls.at[x, 'rank'] if assessor else nList.index(x)
-
-                    
-                    #for class granularity return f'Success Match'
-                    # To improve the localization to cover range of lines 
-                    # if value in range (int(no.split(',')[0]), int(no.split(',')[1])+1, 1):
-                    
-                       
-                          
+                # if value in range (int(no.split(',')[0]), int(no.split(',')[1])+1, 1):
+                                           
     if (class_notifier>0):
         return f'C-{class_notifier}'
     return 0    # print(f'{key}-{bugl.split(':')[0]}')
@@ -137,9 +116,9 @@ for p in trial:
     
     for e in range(1, BID+1):
         # bug_location=f'/home/aiyaya50/defects4j/framework/projects/{p}/patches/'
-        bug_location=f'/home/aiyaya50/buggy_statements/{p}-{e}.buggy.lines'
+        bug_location=f'/home/aiyaya50/buggy-methods/{p}-{e}_ext.buggy.methods'
         
-        buggy_line=findBuggyLine(bug_location)
+        buggy_line=findBuggyClassAndMethod(bug_location)
         
         c=f'{p}-{e}'
         result=[]
@@ -147,24 +126,16 @@ for p in trial:
         
         # iterate through the results of each formula per bug 
         for m in metric:
-            
-            #e=f'{e}' print(df)print(f'Buggy line at:{buggy_line}')
-            #dir=f'/media/aiyaya50/08F4-864B/Bugs/{PID}-{e}b/sfl/txt/{m}.ranking.csv'
-            dir=f'/home/aiyaya50/Bugs/{PID}-{e}b/sfl/txt/{m}.ranking.csv'
+
+            dir=f'/home/aiyaya50/Bugs/{PID}-{e}b/sfl_method/sfl/txt/{m}.ranking.csv'
             try:
                 df= pd.read_csv(dir, sep=';',  header=0, encoding='unicode_escape')
-                # df= df['suspiciousness_value']
-                #data cleaning
-                          
-               
-
-                #print (df)
-                # df.info()
+                
                 # line=re.sub('a.src.|a.source.|a.src.main:.|main:.','', line.strip())
                 df['suspiciousness_value'] = pd.to_numeric(df['suspiciousness_value'])
                 for x in df.index:
                     if abs(df.loc[x, "suspiciousness_value"])==np.inf:
-                        df.replace([np.inf, -np.inf], [np.NaN,np.NaN], inplace=True)
+                        df.replace([np.inf, -np.inf], [np.nan,np.nan], inplace=True)
                     if abs(df.loc[x, "suspiciousness_value"])==0 and check=='processed':
                         #df.drop(df.loc[x])
                         df.replace([0, -0], [-1000,-1000], inplace=True)
@@ -177,25 +148,13 @@ for p in trial:
                 #print (df)
                 if check=='processed':
                     df=df[:1000]
-                
-                
-                score = splitListContent(df, buggy_line, fl_metric)
-                
-                
-                
-                
+                score = topNandWastedEffort(df, buggy_line, fl_metric)
                 result.append(score)
                 print(f'{p}-{e}-{m} bug is Located and rank at:{score}')
 
-                #df.to_csv(f'/home/aiyaya50/uranking/{p}{e}{m}.csv')
-                # print(f'{p}-{e}({buggy_line})-{m}%Located at Top_:{top}')
-                #print(df)
-                '''exists =(df==buggy_line).any().any()
-                print(f'{exists} {buggy_line}')'''
-            except:
-                print(f'Directory does not exist{KeyError}')
-                '''
-                '''
+            except Exception as ef:
+                print(f'Directory does not exist: {ef}')
+                
         table.append(result)       
 print (table)
 fileResult(table, metric)    

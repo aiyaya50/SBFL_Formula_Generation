@@ -1,0 +1,13 @@
+java -cp /home/aiyaya50/Quixbugs/PROJECT/SQRT/target/classes:\
+/home/aiyaya50/Quixbugs/PROJECT/SQRT/target/test-classes:junit-4.12.jar:pitest-entry-1.9.9.jar:pitest-1.9.9.jar:\
+pitest-command-line-1.9.9.jar:\
+commons-text-1.9.jar:commons-lang3-3.3.2.jar org.pitest.mutationtest.commandline.MutationCoverageReport \
+--targetClasses java_programs.SQRT \
+--targetTests java_testcases.junit.SQRT_TEST \
+--reportDir Report/SQRT \
+--sourceDirs /home/aiyaya50/Quixbugs/PROJECT/SQRT/src/java \
+--mutators ALL \
+--outputFormats CSV,HTML,XML \
+--fullMutationMatrix true
+--verbose
+

@@ -99,6 +99,7 @@ java -cp "$src_classes_dir:$D4J_HOME/framework/projects/lib/junit-4.11.jar:$test
       --dataFile "$ser_file" \
       --outputDirectory "$work_dir/$PID-${BID}b" \
       --family "sfl" \
-      --formula "ochiai:Ochiai2:Meco:Tarantula:Barinel:Opt:DStar:Sgf_1:Sgf_2:Fo1:Fo2:Fo3:Fo4:Fo5:Fo6:Fo7:Fo8:Fo9:Fo10:Fo12:Fo13:Fo14:Fo15:Fo16:Fo17:Fo19:Fo20:Fo21:Fo22" \
+      --formula "ochiai:Ochiai2:Meco:Tarantula:Barinel:Jaccard:Opt:DStar:Sgf_1:Sgf_2:Fo1:Fo2:Fo3:Fo4:Fo5:Fo6:Fo7:Fo8:Fo9:Fo10:Fo12:Fo13:Fo14:Fo15:Fo16:Fo17:Fo19:Fo20:Fo21:Fo22" \
       --metric "entropy" \
-      --formatter "txt"
+      --formatter "txt" \
+      --granularity "method"

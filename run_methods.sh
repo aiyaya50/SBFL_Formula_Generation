@@ -1,5 +1,3 @@
-PID=Compress
-BID=47
 # Setup
 
 work_dir="/home/aiyaya50/SBFL_Formula_Generation/method_level"
