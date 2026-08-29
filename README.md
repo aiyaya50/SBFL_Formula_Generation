@@ -15,8 +15,9 @@ Download the buggy statements from https://bitbucket.org/rjust/fault-localizatio
 2. Run the Gzoltar_compatible_formula_generation.ipynb file in jupyter to generate the 22 formulas and manually adjust to conform with Gzoltar/java code
      OR use the formulars in the 'manually_adjusted_formulas' repository.
 3. Set up Gzoltar and alter some of its files (e.g SFLFormulas.java) to incoporate the outcome of #1 above (For details see the https://github.com/aiyaya50/SBFL_Formula_Generation/Manually_adjusted_Formulas/README.md)
-4. Edit path names in fl.py, run.sh, and result_analysis.py to those in your computer
-5. Run fl.py to checkout the buggy versions of defects4j, gather coverage info and compute suspicious scores that will be deposited in the specified folder in run.sh
-6. Run result_analysis.py to generate a csv file for TOP_N or wasted effort (Toggle the 'fl_metric' to True or False in line 5) 
-7. Use other analysis and presentation methods on the generated files in #6 above
+4. Create java file for each formula and save in GZoltar's SFL/Formula/ directory
+6. Edit path names in fl.py, run.sh, and result_analysis.py to those in your computer
+7. Run fl.py to checkout the buggy versions of defects4j, gather coverage info and compute suspicious scores that will be deposited in the specified folder in run.sh
+8. Run result_analysis.py to generate a csv file for TOP_N or wasted effort (Toggle the 'fl_metric' to True or False in line 5) 
+9. Use other analysis and presentation methods on the generated files in #6 above
    
